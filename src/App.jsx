@@ -1,10 +1,52 @@
-import React from 'react'
-import './App.css'
+import React from "react";
+import ReactDOM from "react-dom";
+import { useForm } from "react-hook-form";
+
+import "./App.css";
+
+const defaultValues = {
+  firstName: "bill",
+  lastName: "luo",
+  email: "bluebill1049@hotmail.com"
+};
 
 function App() {
- return (
-  <h3>App</h3>
- )
+  const { register, handleSubmit } = useForm();
+  // or you can set up the defaultValues at useForm
+  // const { register, handleSubmit } = useForm({
+  //   defaultValues,
+  // });
+  const onSubmit = (data) => {
+    alert(JSON.stringify(data));
+  };
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <label htmlFor="firstName">First Name</label>
+      <input
+        defaultValue={defaultValues.firstName}
+        placeholder="bill"
+        {...register("firstName")}
+      />
+
+      <label htmlFor="lastName">Last Name</label>
+      <input
+        defaultValue={defaultValues.lastName}
+        placeholder="luo"
+        {...register("lastName")}
+      />
+
+      <label htmlFor="email">Email</label>
+      <input
+        defaultValue={defaultValues.email}
+        placeholder="bluebill1049@hotmail.com"
+        type="email"
+        {...register("email")}
+      />
+
+      <input type="submit" />
+    </form>
+  );
 }
 
-export default App
+export default App;
